@@ -1,5 +1,0 @@
-
-["MBelt Options"]
-	#List of item IDs allowed in the belt accessory slot (Bags, Bundles, etc.).
-	allowed_attachments = ["minecraft:bundle", "mbelt:small_bag"]
-
