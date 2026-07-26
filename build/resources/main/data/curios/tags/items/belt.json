@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "mbelt:string_belt",
+    "mbelt:leather_belt",
+    "mbelt:hardened_belt"
+  ]
+}

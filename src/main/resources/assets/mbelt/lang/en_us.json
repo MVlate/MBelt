@@ -1,0 +1,21 @@
+{
+  "item.mbelt.string_belt": "String Belt",
+  "item.mbelt.leather_belt": "Leather Belt",
+  "item.mbelt.hardened_belt": "Hardened Belt",
+  "item.mbelt.hardened_leather": "Hardened Leather",
+  "item.mbelt.ender_bag": "Ender Bag",
+  "item.mbelt.large_bag": "Large Bag",
+  "item.mbelt.medium_bag": "Medium Bag",
+  "item.mbelt.small_bag": "Small Bag",
+  "curios.identifier.mbelt_bundle": "Auxiliary Slot",
+  "category.mbelt.keys":"MBelt Keys",
+  "itemGroup.mbelt": "MBelt",
+  "tooltip.mbelt.ender_bag": "Ender Bag",
+  "tooltip.mbelt.small_bag": "Small Bag",
+  "tooltip.mbelt.medium_bag": "Medium Bag",
+  "tooltip.mbelt.large_bag": "Large Bag",
+  "tooltip.mbelt.quick_slots": "Quick Slots: %s",
+  "tooltip.mbelt.bag_equip": "There is no bag attached",
+  "tooltip.mbelt.belt_no_upgrades": "This belt has no upgrades equipped",
+  "tooltip.mbelt.config_category": "MBelt Options"
+}
