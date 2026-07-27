@@ -1,0 +1,21 @@
+{
+  "item.mbelt.string_belt": "Cinturon de hilo",
+  "item.mbelt.leather_belt": "Cinturon de cuero",
+  "item.mbelt.hardened_belt": "Cinturon de cuero endurecido",
+  "item.mbelt.hardened_leather": "Cuero endurecido",
+  "item.mbelt.ender_bag": "Bolsa de Ender",
+  "item.mbelt.large_bag": "Bolsa Grande",
+  "item.mbelt.medium_bag": "Bolsa Mediana",
+  "item.mbelt.small_bag": "Bolsa Pequeña",
+  "curios.identifier.mbelt_bundle": "Ranura Auxiliar",
+  "category.mbelt.keys":"Teclas de Mbelt",
+  "itemGroup.mbelt": "MBelt",
+  "tooltip.mbelt.ender_bag": "Bolsa de Ender",
+  "tooltip.mbelt.small_bag": "Bolsa Pequeña",
+  "tooltip.mbelt.medium_bag": "Bolsa Mediana",
+  "tooltip.mbelt.large_bag": "Bolsa Grande",
+  "tooltip.mbelt.quick_slots": "Accesos Rapidos: %s",
+  "tooltip.mbelt.bag_equip": "No hay bolsa agregada",
+  "tooltip.mbelt.belt_no_upgrades": "Este cinturon no tiene mejoras",
+  "tooltip.mbelt.config_category": "Opciones de MBelt"
+}

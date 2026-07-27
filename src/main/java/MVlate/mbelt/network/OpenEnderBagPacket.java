@@ -1,4 +1,6 @@
 package MVlate.mbelt.network;
+import MVlate.mbelt.MBeltConstants;
+import MVlate.mbelt.client.menu.CreatorSlots;
 import MVlate.mbelt.item.BeltItem;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -22,11 +24,12 @@ public class OpenEnderBagPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
-            if (player == null) return;
 
-            ItemStack belt = BeltItem.getEquippedBelt(player);
+            if (player == null || !(player.containerMenu instanceof CreatorSlots menu)) return;
 
-            if (belt.isEmpty() || !belt.hasTag() || !belt.getTag().contains("has_ender_bag")) {
+            ItemStack belt = menu.getContainerStack();;
+
+            if (belt.isEmpty() || !belt.hasTag() || !belt.getTag().contains(MBeltConstants.NBT_ENDER_BAG)) {
                 return;
             }
 
