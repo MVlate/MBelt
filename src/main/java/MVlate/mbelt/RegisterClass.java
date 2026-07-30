@@ -52,7 +52,7 @@ public class RegisterClass {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS =
-            DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, "mbelt");
+            DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MODID    );
 
     public static final RegistryObject<Codec<? extends IGlobalLootModifier>> ADD_ITEM =
             LOOT_MODIFIERS.register("add_item", () -> AddItemModifier.CODEC);

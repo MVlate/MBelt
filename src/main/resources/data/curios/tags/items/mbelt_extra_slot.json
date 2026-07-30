@@ -1,0 +1,43 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:bundle",
+    {
+      "id": "artifacts:antidote_vessel",
+      "required": false
+    },
+    {
+      "id": "artifacts:cloud_in_a_bottle",
+      "required": false
+    },
+    {
+      "id": "artifacts:crystal_heart",
+      "required": false
+    },
+    {
+      "id": "artifacts:chorus_totem",
+      "required": false
+    },
+    {
+      "id": "artifacts:obsidian_skull",
+      "required": false
+    },
+    {
+      "id": "artifacts:universal_attractor",
+      "required": false
+    },
+    {
+      "id": "supplementaries:key",
+      "required": false
+    },
+    {
+      "id": "supplementaries:quiver",
+      "required": false
+    },
+    {
+      "id": "map_atlases:atlas",
+      "required": false
+    }
+
+  ]
+}

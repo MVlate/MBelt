@@ -66,9 +66,6 @@ public class ContainerScreen extends AbstractContainerScreen<CreatorSlots> {
     @Override
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
         pGuiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 4210752, false);
-        if (getBagSlotsCount() == 0) {
-            pGuiGraphics.drawString(this.font, Component.translatable("tooltip.mbelt.bag_equip"), 20, 20, 0x404040, false);
-        }
     }
 
     @Override
@@ -156,7 +153,7 @@ public class ContainerScreen extends AbstractContainerScreen<CreatorSlots> {
         }
 
         ImageButton ejectEnderButton = new ImageButton(
-                this.leftPos + 160, this.topPos + 30, 12, 12, 0, 0, 12, EJECT_TEXTURE_ENDER_BAG, MBeltConstants.EJECT_BUTTON_WIDTH, MBeltConstants.EJECT_BUTTON_HEIGHT,
+                this.leftPos + 160, this.topPos + 23, 12, 12, 0, 0, 12, EJECT_TEXTURE_ENDER_BAG, MBeltConstants.EJECT_BUTTON_WIDTH, MBeltConstants.EJECT_BUTTON_HEIGHT,
                 button -> {
                     PacketHandler.INSTANCE.sendToServer(new RemoveUpgradePacket(0));
                     button.visible = false;
@@ -166,7 +163,7 @@ public class ContainerScreen extends AbstractContainerScreen<CreatorSlots> {
         ejectEnderButton.visible = hasEnder;
 
         ImageButton ejectBagButton = new ImageButton(
-                this.leftPos + 160, this.topPos + 42, 12, 12, 0, 0, 12, EJECT_TEXTURE_BAG, MBeltConstants.EJECT_BUTTON_WIDTH, MBeltConstants.EJECT_BUTTON_HEIGHT,
+                this.leftPos + 160, this.topPos + 35, 12, 12, 0, 0, 12, EJECT_TEXTURE_BAG, MBeltConstants.EJECT_BUTTON_WIDTH, MBeltConstants.EJECT_BUTTON_HEIGHT,
                 button -> {
                     PacketHandler.INSTANCE.sendToServer(new RemoveUpgradePacket(1));
                     button.visible = false;
@@ -176,7 +173,7 @@ public class ContainerScreen extends AbstractContainerScreen<CreatorSlots> {
         ejectBagButton.visible = hasBag;
 
         ImageButton ejectQuickSlotButton = new ImageButton(
-                this.leftPos + 160, this.topPos + 54, 12, 12, 0, 0, 12, EJECT_TEXTURE_QUICK_SLOT, MBeltConstants.EJECT_BUTTON_WIDTH, MBeltConstants.EJECT_BUTTON_HEIGHT,
+                this.leftPos + 160, this.topPos + 47, 12, 12, 0, 0, 12, EJECT_TEXTURE_QUICK_SLOT, MBeltConstants.EJECT_BUTTON_WIDTH, MBeltConstants.EJECT_BUTTON_HEIGHT,
                 button -> {
                     PacketHandler.INSTANCE.sendToServer(new RemoveUpgradePacket(2));
                     button.visible = false;
