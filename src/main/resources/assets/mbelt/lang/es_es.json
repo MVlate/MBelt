@@ -7,7 +7,7 @@
   "item.mbelt.large_bag": "Bolsa Grande",
   "item.mbelt.medium_bag": "Bolsa Mediana",
   "item.mbelt.small_bag": "Bolsa Pequeña",
-  "curios.identifier.mbelt_bundle": "Ranura Auxiliar",
+  "curios.identifier.mbelt_extra_slot": "Ranura Auxiliar",
   "category.mbelt.keys":"Teclas de Mbelt",
   "itemGroup.mbelt": "MBelt",
   "tooltip.mbelt.ender_bag": "Bolsa de Ender",
@@ -17,5 +17,6 @@
   "tooltip.mbelt.quick_slots": "Accesos Rapidos: %s",
   "tooltip.mbelt.bag_equip": "No hay bolsa agregada",
   "tooltip.mbelt.belt_no_upgrades": "Este cinturon no tiene mejoras",
-  "tooltip.mbelt.config_category": "Opciones de MBelt"
+  "tooltip.mbelt.config_category": "Opciones de MBelt",
+  "tooltip.mbelt.indication":"Se puede agregar mejoras en el yunque"
 }

@@ -14,7 +14,7 @@ public class MBeltConstants {
 
     // Bags
     public static final int BAG_START_X = 19;
-    public static final int BAG_START_Y = 15;
+    public static final int BAG_START_Y = 51;
 
     public static final int PLAYER_INV_X = 8;
     public static final int PLAYER_INV_Y = 84;

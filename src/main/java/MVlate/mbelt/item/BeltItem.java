@@ -41,13 +41,14 @@ public class BeltItem extends Item implements ICurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> modifiers = LinkedHashMultimap.create();
 
-        CuriosApi.addSlotModifier(modifiers, "mbelt_bundle", uuid, this.extraSlot, AttributeModifier.Operation.ADDITION);
+        CuriosApi.addSlotModifier(modifiers, "mbelt_extra_slot", uuid, this.extraSlot, AttributeModifier.Operation.ADDITION);
 
         return modifiers;
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+        tooltipComponents.add(Component.translatable("tooltip.mbelt.indication").withStyle(ChatFormatting.GRAY));
         super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
 
         if (stack.hasTag()) {

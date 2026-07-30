@@ -167,7 +167,7 @@ public class CreatorSlots extends AbstractContainerMenu {
         int containerSlots= 0;
         for (int i = 0; i < bagSize; i++) {
             int xPos = MBeltConstants.BAG_START_X + (i % 4 * MBeltConstants.SLOT_SIZE);
-            int yPos = MBeltConstants.BAG_START_Y + (i / 4 * MBeltConstants.SLOT_SIZE);
+            int yPos = MBeltConstants.BAG_START_Y - (i / 4 * MBeltConstants.SLOT_SIZE);
 
             this.addSlot(new SlotItemHandler(bagInventory, i, xPos, yPos));
             containerSlots++;
