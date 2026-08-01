@@ -3,15 +3,15 @@
   "pattern": [
     "EEE",
     "E E",
-    "EEE"
+    " E "
   ],
   "key": {
     "E": {
-      "item": "mbelt:cuero_endurecido"
+      "item": "minecraft:string"
     }
   },
   "result": {
-    "item": "mbelt:hardened_belt",
+    "item": "mbelt:string_belt",
     "count": 1
   }
 }
