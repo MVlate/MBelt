@@ -2,16 +2,19 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "EEE",
-    "E E",
-    "EEE"
+    "ELE",
+    " E "
   ],
   "key": {
     "E": {
       "item": "mbelt:hardened_leather"
+    },
+    "L": {
+      "item": "minecraft:iron_ingot"
     }
   },
   "result": {
-    "item": "mbelt:string_belt",
+    "item": "mbelt:hardened_belt",
     "count": 1
   }
 }

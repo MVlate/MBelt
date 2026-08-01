@@ -16,7 +16,7 @@ public class MBeltConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> ALLOWED_ATTACHMENTS;
 
     static {
-        BUILDER.push("MBelt Options");
+        BUILDER.translation("tooltip.mbelt.config_category").push("mbelt_options");
 
         ALLOWED_ATTACHMENTS = BUILDER
                 .comment("List of item IDs allowed in the belt accessory slot (Bags, Bundles, etc.).")
