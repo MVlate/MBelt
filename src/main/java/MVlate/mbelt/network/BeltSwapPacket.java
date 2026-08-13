@@ -47,7 +47,7 @@ public class BeltSwapPacket {
 
             if (this.slotId >= nbt.getInt(MBeltConstants.NBT_QUICK_SLOT)) return;
 
-            ItemStackHandler beltInventory = new ItemStackHandler(10);
+            ItemStackHandler beltInventory = new ItemStackHandler(nbt.getInt(MBeltConstants.NBT_QUICK_SLOT));
             if (nbt.contains(MBeltConstants.NBT_QUICK_SLOT_INVENTORY)) {
                 beltInventory.deserializeNBT(nbt.getCompound(MBeltConstants.NBT_QUICK_SLOT_INVENTORY));
             }

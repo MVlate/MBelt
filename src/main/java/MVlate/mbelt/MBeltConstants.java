@@ -32,7 +32,7 @@ public class MBeltConstants {
     public static final String NBT_QUICK_SLOT = "quick_slots";
     public static final String NBT_QUICK_SLOT_INVENTORY = "QuickSlotsInventory";
 
-    public static final int QUICK_SLOT_INVENTORY_SIZE = 6;
-    public static final int BAG_INVENTORY_SIZE = 12;
+    //public static final int QUICK_SLOT_INVENTORY_SIZE = 6;
+    //public static final int BAG_INVENTORY_SIZE = 12;
 
 }

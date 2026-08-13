@@ -1,6 +1,7 @@
 package MVlate.mbelt.item;
 import MVlate.mbelt.MBeltConstants;
 import MVlate.mbelt.client.menu.CreatorSlots;
+import MVlate.mbelt.config.MBeltConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -30,18 +31,30 @@ import java.util.UUID;
 
 public class BeltItem extends Item implements ICurioItem {
 
-    private final int extraSlot;
+    private final int amountOfExtraSlots;
+    public final int maxQuickSlots;
+    public final int maxBagSize;
 
-    public BeltItem(Properties properties, int extraSlot) {
+    public BeltItem(Properties properties, int extraSlot, int maxQuickSlots, int maxBagSize) {
         super(properties);
-        this.extraSlot = extraSlot;
+        this.amountOfExtraSlots = extraSlot;
+        this.maxQuickSlots = maxQuickSlots;
+        this.maxBagSize = maxBagSize;
+    }
+
+    public int getMaxQuickSlots() {
+        return maxQuickSlots;
+    }
+
+    public int getMaxBagSize() {
+        return maxBagSize;
     }
 
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> modifiers = LinkedHashMultimap.create();
 
-        CuriosApi.addSlotModifier(modifiers, "mbelt_extra_slot", uuid, this.extraSlot, AttributeModifier.Operation.ADDITION);
+        CuriosApi.addSlotModifier(modifiers, "mbelt_extra_slot", uuid, this.amountOfExtraSlots, AttributeModifier.Operation.ADDITION);
 
         return modifiers;
     }
@@ -125,4 +138,8 @@ public class BeltItem extends Item implements ICurioItem {
         return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged);
     }
 
+    @Override
+    public boolean canFitInsideContainerItems() {
+        return MBeltConfig.ALLOW_BELT_IN_CONTAINERS.get();
+    }
 }

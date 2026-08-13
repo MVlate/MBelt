@@ -3,6 +3,7 @@ package MVlate.mbelt.event;
 import MVlate.mbelt.MBeltConstants;
 import MVlate.mbelt.Mbelt;
 import MVlate.mbelt.RegisterClass;
+import MVlate.mbelt.item.BeltItem;
 import MVlate.mbelt.item.EnderBagItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
@@ -22,19 +23,9 @@ public class AnvilUpgradeHandler {
         ItemStack leftItem = event.getLeft();
         ItemStack rightItem = event.getRight();
 
-        int maxQuickSlots = 0;
-        int maxBagSize = 0;
-
-        if (leftItem.getItem() == RegisterClass.STRING_BELT.get()) {
-            maxQuickSlots = 1;
-            maxBagSize = 8;
-        } else if (leftItem.getItem() == RegisterClass.LEATHER_BELT.get()) {
-            maxQuickSlots = 3;
-            maxBagSize = 12;
-        } else if (leftItem.getItem() == RegisterClass.HARDENED_BELT.get()) {
-            maxQuickSlots = 6;
-            maxBagSize = 12;
-        }
+        BeltItem leftBeltItem = (BeltItem) leftItem.getItem();
+        int maxQuickSlots = leftBeltItem.getMaxQuickSlots();
+        int maxBagSize = leftBeltItem.getMaxBagSize();
 
         if (leftItem.getItem() == RegisterClass.STRING_BELT.get() ||
                 leftItem.getItem() == RegisterClass.LEATHER_BELT.get() ||
@@ -53,9 +44,8 @@ public class AnvilUpgradeHandler {
                 }
             }
 
-            else if (rightItem.getItem() instanceof BagItem) {
-                BagItem nuevaBolsa = (BagItem) rightItem.getItem();
-                int newBagSize = nuevaBolsa.getSlots();
+            else if (rightItem.getItem() instanceof BagItem newBag) {
+                int newBagSize = newBag.getSlots();
 
                 ItemStack upgradedBelt = leftItem.copy();
                 CompoundTag nbt = upgradedBelt.getOrCreateTag();
