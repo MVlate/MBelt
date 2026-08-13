@@ -2,6 +2,7 @@ package MVlate.mbelt.client.screen;
 
 import MVlate.mbelt.MBeltConstants;
 import MVlate.mbelt.Mbelt;
+import MVlate.mbelt.item.BeltItem;
 import MVlate.mbelt.network.OpenEnderBagPacket;
 import MVlate.mbelt.network.PacketHandler;
 import MVlate.mbelt.network.RemoveUpgradePacket;
@@ -34,15 +35,30 @@ public class ContainerScreen extends AbstractContainerScreen<CreatorSlots> {
         this.imageHeight = MBeltConstants.HEIGHT;
 
         sizeContainer =getBagSlotsCount();
+        ItemStack stack = this.menu.getContainerStack();
+        if(stack.getItem() instanceof BeltItem){
+            if (sizeContainer > 8) {
+                this.texture = new ResourceLocation(Mbelt.MODID, "textures/gui/belt_large_bag_gui.png");
+            } else if (sizeContainer > 4) {
+                this.texture = new ResourceLocation(Mbelt.MODID, "textures/gui/belt_medium_bag_gui.png");
+            } else if (sizeContainer > 0) {
+                this.texture = new ResourceLocation(Mbelt.MODID, "textures/gui/belt_small_bag_gui.png");
+            } else {
+                this.texture = new ResourceLocation(Mbelt.MODID, "textures/gui/base_belt_gui.png");
+            }
+        } else if (stack.getItem() instanceof BagItem) {
+            if (sizeContainer > 8) {
+                this.texture = new ResourceLocation(Mbelt.MODID, "textures/gui/large_bag_gui.png");
+            } else if (sizeContainer > 4) {
+                this.texture = new ResourceLocation(Mbelt.MODID, "textures/gui/medium_bag_gui.png");
+            } else if (sizeContainer > 0) {
+                this.texture = new ResourceLocation(Mbelt.MODID, "textures/gui/small_bag_gui.png");
+            } else {
+                this.texture = new ResourceLocation(Mbelt.MODID, "textures/gui/base_belt_gui.png");;
+            }
 
-        if (sizeContainer > 8) {
-            this.texture = new ResourceLocation(Mbelt.MODID, "textures/gui/large_bag_gui.png");
-        } else if (sizeContainer > 4) {
-            this.texture = new ResourceLocation(Mbelt.MODID, "textures/gui/medium_bag_gui.png");
-        } else if (sizeContainer > 0) {
-            this.texture = new ResourceLocation(Mbelt.MODID, "textures/gui/small_bag_gui.png");
         } else {
-            this.texture = new ResourceLocation(Mbelt.MODID, "textures/gui/base_belt_gui.png");
+            this.texture = new ResourceLocation(Mbelt.MODID, "textures/gui/base_belt_gui.png");;
         }
     }
 

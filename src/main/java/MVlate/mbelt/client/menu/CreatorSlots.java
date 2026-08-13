@@ -2,6 +2,8 @@ package MVlate.mbelt.client.menu;
 
 import MVlate.mbelt.MBeltConstants;
 import MVlate.mbelt.RegisterClass;
+import MVlate.mbelt.config.MBeltConfig;
+import MVlate.mbelt.item.BeltItem;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,16 +15,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import MVlate.mbelt.item.BagItem;
+import org.jetbrains.annotations.NotNull;
 
 public class CreatorSlots extends AbstractContainerMenu {
     public int lockedSlotIndex = -1; //
 
-    private final ItemStackHandler quickSlotsInventory = new ItemStackHandler(MBeltConstants.QUICK_SLOT_INVENTORY_SIZE) {
-        @Override protected void onContentsChanged(int slot) { saveContainerData(); }
-    };
-    private final ItemStackHandler bagInventory = new ItemStackHandler(MBeltConstants.BAG_INVENTORY_SIZE) {
-        @Override protected void onContentsChanged(int slot) { saveContainerData(); }
-    };
+    private ItemStackHandler quickSlotsInventory = new ItemStackHandler(0);
+    private ItemStackHandler bagInventory = new ItemStackHandler(0);
 
     private final ItemStack containerStack;
     private int totalContainerSlots = 0;
@@ -34,45 +33,50 @@ public class CreatorSlots extends AbstractContainerMenu {
     public CreatorSlots(int containerId, Inventory playerInventory, ItemStack containerStack) {
         super(RegisterClass.CREATOR_SLOTS.get(), containerId);
         this.containerStack = containerStack;
+        int bagSize=0;
 
-        if (containerStack.getItem() instanceof BagItem) {
+        if (containerStack.getItem() instanceof BagItem bag) {
+            bagSize = bag.getSlots();
+
+            bagInventoryItemStackHandler(bagSize);
+            drawLogicSlotsBag(bagSize);
+
             if (containerStack.hasTag() && containerStack.getTag().contains("ContainerInventory")) {
                 bagInventory.deserializeNBT(containerStack.getTag().getCompound("ContainerInventory"));
             }
-
-            BagItem bag = (BagItem) containerStack.getItem();
-            int bagSlots = bag.getSlots();
-            this.totalContainerSlots += drawLogicSlotsBag(bagSlots);
+            this.totalContainerSlots = bagSize;
 
         } else {
             CompoundTag beltNbt = containerStack.getOrCreateTag();
-
-
+            quickSlotsInventoryItemStackHandler(beltNbt.getInt(MBeltConstants.NBT_QUICK_SLOT));
             if (beltNbt.contains("QuickSlotsInventory")) {
                 quickSlotsInventory.deserializeNBT(beltNbt.getCompound("QuickSlotsInventory"));
             }
 
-            int quickSlots = beltNbt.getInt("quick_slots");
-            for (int i = 0; i < quickSlots; i++) {
-                int col = i % 4;
-                int x = MBeltConstants.QUICK_START_X + (col * MBeltConstants.SLOT_SIZE);
-
-                int y = (i < 4) ? MBeltConstants.QUICK_START_Y : MBeltConstants.QUICK_END_Y;
-
-                this.addSlot(new SlotItemHandler(quickSlotsInventory, i, x, y));
-                this.totalContainerSlots++;
-            }
-
-
             if (beltNbt.contains("EquippedBag")) {
+                bagSize = beltNbt.getInt("bag_size");
+                bagInventoryItemStackHandler(bagSize);
                 ItemStack equippedBag = ItemStack.of(beltNbt.getCompound("EquippedBag"));
                 if (equippedBag.hasTag() && equippedBag.getTag().contains("ContainerInventory")) {
                     bagInventory.deserializeNBT(equippedBag.getTag().getCompound("ContainerInventory"));
                 }
 
-                int bagSizeGuardado = beltNbt.getInt("bag_size");
-                this.totalContainerSlots += drawLogicSlotsBag(bagSizeGuardado);
+                drawLogicSlotsBag(bagSize);
             }
+
+            int quickSlots = beltNbt.getInt(MBeltConstants.NBT_QUICK_SLOT);
+            for (int i = 0; i < quickSlots; i++) {
+                int col = i % 3;
+                int x = MBeltConstants.QUICK_START_X + (col * MBeltConstants.SLOT_SIZE);
+
+                int y = (i < 3) ? MBeltConstants.QUICK_START_Y : MBeltConstants.QUICK_END_Y;
+
+                this.addSlot(new SlotItemHandler(quickSlotsInventory, i, x, y));
+            }
+
+
+            this.totalContainerSlots = quickSlots + bagSize;
+
         }
 
         //PLAYER INV
@@ -92,6 +96,67 @@ public class CreatorSlots extends AbstractContainerMenu {
                 break;
             }
         }
+    }
+
+    private void bagInventoryItemStackHandler(int bagSize){
+        this.bagInventory = new ItemStackHandler(bagSize) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                saveContainerData();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+
+                if (!MBeltConfig.ALLOW_CONTAINERS_IN_BELT_AND_BAGS.get()) {
+                    if (!stack.getItem().canFitInsideContainerItems()) {
+                        return false;
+                    }
+                }
+
+                if (stack.getItem() instanceof BagItem) {
+                    return false;
+                }
+
+                if (stack.getItem() instanceof BeltItem && stack.hasTag()) {
+                    boolean hasItems = stack.getTag().contains(MBeltConstants.NBT_BAG) ||
+                            stack.getTag().contains(MBeltConstants.NBT_ENDER_BAG) || stack.getTag().contains(MBeltConstants.NBT_QUICK_SLOT);
+                    if (hasItems) {
+                        return false;
+                    }
+                }
+
+                return super.isItemValid(slot, stack);
+            }
+        };
+    }
+
+    private void quickSlotsInventoryItemStackHandler(int quickSlots){
+        this.quickSlotsInventory= new ItemStackHandler(quickSlots) {
+
+            @Override protected void onContentsChanged(int slot) { saveContainerData(); }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+
+                if (!MBeltConfig.ALLOW_CONTAINERS_IN_BELT_AND_BAGS.get()) {
+                    if (!stack.getItem().canFitInsideContainerItems()) {
+                        return false;
+                    }
+                }
+                if (stack.getItem() instanceof BagItem) {return false;}
+
+                if (stack.getItem() instanceof BeltItem && stack.hasTag()) {
+                    boolean hasItems = stack.getTag().contains(MBeltConstants.NBT_BAG) ||
+                            stack.getTag().contains(MBeltConstants.NBT_ENDER_BAG)||stack.getTag().contains(MBeltConstants.NBT_QUICK_SLOT);
+                    if (hasItems) {
+                        return false;
+                    }
+                }
+
+                return super.isItemValid(slot, stack);
+            }
+        };
     }
 
     @Override
@@ -127,7 +192,7 @@ public class CreatorSlots extends AbstractContainerMenu {
 
             nbt.put("QuickSlotsInventory", quickSlotsInventory.serializeNBT());
 
-            if (nbt.contains("EquippedBag")) {
+            if (nbt.contains("EquippedBag") && bagInventory != null) {
                 ItemStack equippedBag = ItemStack.of(nbt.getCompound("EquippedBag"));
                 equippedBag.getOrCreateTag().put("ContainerInventory", bagInventory.serializeNBT());
                 nbt.put("EquippedBag", equippedBag.save(new CompoundTag()));
@@ -162,18 +227,14 @@ public class CreatorSlots extends AbstractContainerMenu {
 
     public ItemStack getContainerStack() { return this.containerStack; }
 
-    private int drawLogicSlotsBag(int bagSize){
+    private void drawLogicSlotsBag(int bagSize){
 
-        int containerSlots= 0;
         for (int i = 0; i < bagSize; i++) {
             int xPos = MBeltConstants.BAG_START_X + (i % 4 * MBeltConstants.SLOT_SIZE);
             int yPos = MBeltConstants.BAG_START_Y - (i / 4 * MBeltConstants.SLOT_SIZE);
 
             this.addSlot(new SlotItemHandler(bagInventory, i, xPos, yPos));
-            containerSlots++;
         }
-        return containerSlots;
-
     }
 
 
