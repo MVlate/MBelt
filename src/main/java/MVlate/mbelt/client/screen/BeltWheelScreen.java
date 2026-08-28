@@ -2,6 +2,7 @@ package MVlate.mbelt.client.screen;
 
 import MVlate.mbelt.Mbelt;
 import MVlate.mbelt.client.BeltKeybinds;
+import MVlate.mbelt.item.BeltItem;
 import MVlate.mbelt.network.BeltSwapPacket;
 import MVlate.mbelt.network.PacketHandler;
 import net.minecraft.client.gui.screens.Screen;
@@ -18,7 +19,8 @@ public class BeltWheelScreen extends Screen {
     private final int quickSlots;
     private int hoveredSlot = -1;
 
-    public BeltWheelScreen(ItemStack belt, ItemStackHandler inventory, int quickSlots) {
+
+    public BeltWheelScreen(ItemStackHandler inventory, int quickSlots) {
         super(Component.empty());
         this.inventory = inventory;
         this.quickSlots = quickSlots;
@@ -31,6 +33,9 @@ public class BeltWheelScreen extends Screen {
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+
+        if (this.inventory.getSlots() <= 0) return;
+
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
         int centerX = this.width / 2;
@@ -46,7 +51,8 @@ public class BeltWheelScreen extends Screen {
         double angle = Math.toDegrees(Math.atan2(mouseY - centerY, mouseX - centerX));
         if (angle < 0) angle += 360;
 
-        double slice = 360.0 / quickSlots;
+        double slice = 360.0 / this.inventory.getSlots();
+
         //Distance from center
         double distance = Math.sqrt(Math.pow(mouseX - centerX, 2) + Math.pow(mouseY - centerY, 2));
 
@@ -58,7 +64,7 @@ public class BeltWheelScreen extends Screen {
 
 
         int radius = 60;
-        for (int i = 0; i < quickSlots; i++) {
+        for (int i = 0; i < this.inventory.getSlots(); i++) {
             double slotAngle = Math.toRadians((i * slice) + (slice / 2));
             int slotX = centerX + (int) (Math.cos(slotAngle) * radius) - 8;
             int slotY = centerY + (int) (Math.sin(slotAngle) * radius) - 8;

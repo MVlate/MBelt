@@ -18,5 +18,13 @@
   "tooltip.mbelt.bag_equip": "Aucun sac n'est attaché",
   "tooltip.mbelt.belt_no_upgrades": "Cette ceinture n'a aucune amélioration équipée",
   "tooltip.mbelt.config_category": "Options MBelt",
-  "tooltip.mbelt.indication":"Vous pouvez ajouter des améliorations à l'aide de l'enclume"
+  "tooltip.mbelt.indication":"Vous pouvez ajouter des améliorations à l'aide de l'enclume",
+  "key.mbelt.quick1": "Accès rapide 1",
+  "key.mbelt.quick2": "Accès rapide 2",
+  "key.mbelt.quick3": "Accès rapide 3",
+  "key.mbelt.quick4": "Accès rapide 4",
+  "key.mbelt.quick5": "Accès rapide 5",
+  "key.mbelt.quick6": "Accès rapide 6",
+  "key.mbelt.gui": "Inventaire de la ceinture",
+  "key.mbelt.wheel": "Roue d'accès rapide"
 }

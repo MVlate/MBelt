@@ -25,16 +25,16 @@ public class RegisterClass {
             MENUS.register("creators_slots", () -> IForgeMenuType.create(CreatorSlots::new));
 
     public static final RegistryObject<Item> STRING_BELT = ITEMS.register("string_belt",
-            () -> new BeltItem(new Item.Properties().stacksTo(1), 1));
+            () -> new BeltItem(new Item.Properties().stacksTo(1), 1,1,4));
 
     public static final RegistryObject<Item> LEATHER_BELT = ITEMS.register("leather_belt",
-            () -> new BeltItem(new Item.Properties().stacksTo(1), 2));
+            () -> new BeltItem(new Item.Properties().stacksTo(1), 2,3,12));
 
     public static final RegistryObject<Item> HARDENED_BELT = ITEMS.register("hardened_belt",
-            () -> new BeltItem(new Item.Properties().stacksTo(1),3));
+            () -> new BeltItem(new Item.Properties().stacksTo(1),3,6,12));
 
     public static final RegistryObject<Item> SMALL_BAG = ITEMS.register("small_bag",
-            () -> new BagItem(new Item.Properties().stacksTo(1), 4)); // stacksTo(1) evita que se apilen
+            () -> new BagItem(new Item.Properties().stacksTo(1), 4));
 
     public static final RegistryObject<Item> MEDIUM_BAG = ITEMS.register("medium_bag",
             () -> new BagItem(new Item.Properties().stacksTo(1), 8));

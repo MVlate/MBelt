@@ -1,5 +1,6 @@
 package MVlate.mbelt.client;
 
+import MVlate.mbelt.MBeltConstants;
 import MVlate.mbelt.Mbelt;
 import MVlate.mbelt.client.screen.BeltHudOverlay;
 import MVlate.mbelt.client.screen.BeltWheelScreen;
@@ -31,6 +32,7 @@ public class BeltKeybinds {
     public static final KeyMapping QUICK_KEY_3 = new KeyMapping("key.mbelt.quick3", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, InputConstants.UNKNOWN.getValue(), category);
     public static final KeyMapping QUICK_KEY_4 = new KeyMapping("key.mbelt.quick4", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, InputConstants.UNKNOWN.getValue(), category);
     public static final KeyMapping QUICK_KEY_5 = new KeyMapping("key.mbelt.quick5", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, InputConstants.UNKNOWN.getValue(), category);
+    public static final KeyMapping QUICK_KEY_6 = new KeyMapping("key.mbelt.quick6", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, InputConstants.UNKNOWN.getValue(), category);
     public static final KeyMapping GUI_KEY = new KeyMapping("key.mbelt.gui", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM,GLFW.GLFW_KEY_V, category);
     public static final KeyMapping WHEEL_KEY = new KeyMapping("key.mbelt.wheel", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM,GLFW.GLFW_KEY_N, category);
 
@@ -43,6 +45,7 @@ public class BeltKeybinds {
             event.register(QUICK_KEY_3);
             event.register(QUICK_KEY_4);
             event.register(QUICK_KEY_5);
+            event.register(QUICK_KEY_6);
             event.register(WHEEL_KEY);
             event.register(GUI_KEY);
         }
@@ -72,6 +75,10 @@ public class BeltKeybinds {
                 PacketHandler.INSTANCE.sendToServer(new BeltSwapPacket(4,false));
                 BeltHudOverlay.displayTicks = 60;
             }
+            if (QUICK_KEY_6.consumeClick()) {
+                PacketHandler.INSTANCE.sendToServer(new BeltSwapPacket(5,false));
+                BeltHudOverlay.displayTicks = 60;
+            }
             if (GUI_KEY.consumeClick()) {
                 PacketHandler.INSTANCE.sendToServer(new BeltInventoryPacket());
             }
@@ -86,15 +93,17 @@ public class BeltKeybinds {
 
                     if (!belt.isEmpty() && belt.hasTag()) {
                         CompoundTag tag = belt.getTag();
-                        int quickSlots = tag.getInt("quick_slots");
+                        int quickSlots = tag.getInt(MBeltConstants.NBT_QUICK_SLOT);
 
                         if (quickSlots > 0) {
                             ItemStackHandler inventory = new ItemStackHandler(quickSlots);
-                            if (tag.contains("QuickSlotsInventory")) {
-                                inventory.deserializeNBT(tag.getCompound("QuickSlotsInventory"));
+                            if (tag.contains(MBeltConstants.NBT_QUICK_SLOT_INVENTORY)) {
+                                CompoundTag invTag = tag.getCompound(MBeltConstants.NBT_QUICK_SLOT_INVENTORY);
+                                invTag.putInt("Size", quickSlots);
+                                inventory.deserializeNBT(invTag);
                             }
 
-                            minecraft.setScreen(new BeltWheelScreen(belt, inventory, quickSlots));
+                            minecraft.setScreen(new BeltWheelScreen(inventory, quickSlots));
                         }
                     }
                 }

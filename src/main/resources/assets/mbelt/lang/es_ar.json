@@ -18,5 +18,13 @@
   "tooltip.mbelt.bag_equip": "No hay bolsa agregada",
   "tooltip.mbelt.belt_no_upgrades": "Este cinto no tiene mejoras",
   "tooltip.mbelt.config_category": "Opciones de MBelt",
-  "tooltip.mbelt.indication":"Se puede agregar mejoras en el yunque"
+  "tooltip.mbelt.indication":"Se puede agregar mejoras en el yunque",
+  "key.mbelt.quick1": "Acceso rapido 1",
+  "key.mbelt.quick2": "Acceso rapido 2",
+  "key.mbelt.quick3": "Acceso rapido 3",
+  "key.mbelt.quick4": "Acceso rapido 4",
+  "key.mbelt.quick5": "Acceso rapido 5",
+  "key.mbelt.quick6": "Acceso rapido 6",
+  "key.mbelt.gui": "Inventario del cinturon",
+  "key.mbelt.wheel": "Rueda de acceso rapido"
 }

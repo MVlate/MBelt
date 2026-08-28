@@ -23,13 +23,11 @@ public class AnvilUpgradeHandler {
         ItemStack leftItem = event.getLeft();
         ItemStack rightItem = event.getRight();
 
-        BeltItem leftBeltItem = (BeltItem) leftItem.getItem();
-        int maxQuickSlots = leftBeltItem.getMaxQuickSlots();
-        int maxBagSize = leftBeltItem.getMaxBagSize();
 
-        if (leftItem.getItem() == RegisterClass.STRING_BELT.get() ||
-                leftItem.getItem() == RegisterClass.LEATHER_BELT.get() ||
-                leftItem.getItem() == RegisterClass.HARDENED_BELT.get()) {
+        if (leftItem.getItem() instanceof BeltItem leftBeltItem) {
+
+            int maxQuickSlots = leftBeltItem.getMaxQuickSlots();
+            int maxBagSize = leftBeltItem.getMaxBagSize();
 
             if (rightItem.getItem() == Items.LEAD) {
                 ItemStack upgradedBelt = leftItem.copy();
@@ -37,14 +35,17 @@ public class AnvilUpgradeHandler {
                 int currentQuickSlots = nbt.getInt(MBeltConstants.NBT_QUICK_SLOT);
 
                 if (currentQuickSlots < maxQuickSlots) {
-                    nbt.putInt(MBeltConstants.NBT_QUICK_SLOT, currentQuickSlots + 1);
+                    int newQuickSlots=currentQuickSlots + 1;
+                    nbt.putInt(MBeltConstants.NBT_QUICK_SLOT, newQuickSlots);
+
+                    if (nbt.contains(MBeltConstants.NBT_QUICK_SLOT_INVENTORY))
+                        nbt.getCompound(MBeltConstants.NBT_QUICK_SLOT_INVENTORY).putInt("Size", newQuickSlots);
+
                     event.setOutput(upgradedBelt);
                     event.setCost(3);
                     event.setMaterialCost(1);
                 }
-            }
-
-            else if (rightItem.getItem() instanceof BagItem newBag) {
+            }else if (rightItem.getItem() instanceof BagItem newBag) {
                 int newBagSize = newBag.getSlots();
 
                 ItemStack upgradedBelt = leftItem.copy();
@@ -59,8 +60,7 @@ public class AnvilUpgradeHandler {
                     event.setCost(5);
                     event.setMaterialCost(1);
                 }
-            }
-            else if (rightItem.getItem() instanceof EnderBagItem) {
+            }else if (rightItem.getItem() instanceof EnderBagItem) {
                 CompoundTag currentNbt = leftItem.getTag();
                 if (currentNbt != null && currentNbt.contains(MBeltConstants.NBT_ENDER_BAG)) {
                     return;
@@ -85,7 +85,7 @@ public class AnvilUpgradeHandler {
         ItemStack leftItem = event.getLeft();
         ItemStack rightItem = event.getRight();
 
-        if ((leftItem.getItem() == RegisterClass.STRING_BELT.get() || leftItem.getItem() == RegisterClass.LEATHER_BELT.get())
+        if ((leftItem.getItem() instanceof BeltItem)
                 && rightItem.getItem() instanceof BagItem) {
 
             CompoundTag oldNbt = leftItem.getTag();

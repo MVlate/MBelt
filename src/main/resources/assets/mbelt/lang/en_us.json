@@ -18,5 +18,13 @@
   "tooltip.mbelt.bag_equip": "There is no bag attached",
   "tooltip.mbelt.belt_no_upgrades": "This belt has no upgrades equipped",
   "tooltip.mbelt.config_category": "MBelt Options",
-  "tooltip.mbelt.indication": "Upgrades can be attached using the anvil"
+  "tooltip.mbelt.indication": "Upgrades can be attached using the anvil",
+  "key.mbelt.quick1": "Quick Access 1",
+  "key.mbelt.quick2": "Quick Access 2",
+  "key.mbelt.quick3": "Quick Access 3",
+  "key.mbelt.quick4": "Quick Access 4",
+  "key.mbelt.quick5": "Quick Access 5",
+  "key.mbelt.quick6": "Quick Access 6",
+  "key.mbelt.gui": "Belt Inventory",
+  "key.mbelt.wheel": "Quick Access Wheel"
 }
