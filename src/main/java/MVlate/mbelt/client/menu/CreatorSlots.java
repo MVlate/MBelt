@@ -41,24 +41,24 @@ public class CreatorSlots extends AbstractContainerMenu {
             bagInventoryItemStackHandler(bagSize);
             drawLogicSlotsBag(bagSize);
 
-            if (containerStack.hasTag() && containerStack.getTag().contains("ContainerInventory")) {
-                bagInventory.deserializeNBT(containerStack.getTag().getCompound("ContainerInventory"));
+            if (containerStack.hasTag() && containerStack.getTag().contains(MBeltConstants.NBT_CONTAINER_INVENTORY)) {
+                bagInventory.deserializeNBT(containerStack.getTag().getCompound(MBeltConstants.NBT_CONTAINER_INVENTORY));
             }
             this.totalContainerSlots = bagSize;
 
         } else {
             CompoundTag beltNbt = containerStack.getOrCreateTag();
             quickSlotsInventoryItemStackHandler(beltNbt.getInt(MBeltConstants.NBT_QUICK_SLOT));
-            if (beltNbt.contains("QuickSlotsInventory")) {
-                quickSlotsInventory.deserializeNBT(beltNbt.getCompound("QuickSlotsInventory"));
+            if (beltNbt.contains(MBeltConstants.NBT_QUICK_SLOT_INVENTORY)) {
+                quickSlotsInventory.deserializeNBT(beltNbt.getCompound(MBeltConstants.NBT_QUICK_SLOT_INVENTORY));
             }
 
-            if (beltNbt.contains("EquippedBag")) {
-                bagSize = beltNbt.getInt("bag_size");
+            if (beltNbt.contains(MBeltConstants.NBT_BAG)) {
+                bagSize = beltNbt.getInt(MBeltConstants.NBT_BAG_SIZE);
                 bagInventoryItemStackHandler(bagSize);
-                ItemStack equippedBag = ItemStack.of(beltNbt.getCompound("EquippedBag"));
-                if (equippedBag.hasTag() && equippedBag.getTag().contains("ContainerInventory")) {
-                    bagInventory.deserializeNBT(equippedBag.getTag().getCompound("ContainerInventory"));
+                ItemStack equippedBag = ItemStack.of(beltNbt.getCompound(MBeltConstants.NBT_BAG));
+                if (equippedBag.hasTag() && equippedBag.getTag().contains(MBeltConstants.NBT_CONTAINER_INVENTORY)) {
+                    bagInventory.deserializeNBT(equippedBag.getTag().getCompound(MBeltConstants.NBT_CONTAINER_INVENTORY));
                 }
 
                 drawLogicSlotsBag(bagSize);
@@ -187,15 +187,15 @@ public class CreatorSlots extends AbstractContainerMenu {
 
         if (containerStack.getItem() instanceof BagItem) {
 
-            nbt.put("ContainerInventory", bagInventory.serializeNBT());
+            nbt.put(MBeltConstants.NBT_CONTAINER_INVENTORY, bagInventory.serializeNBT());
         } else {
 
-            nbt.put("QuickSlotsInventory", quickSlotsInventory.serializeNBT());
+            nbt.put(MBeltConstants.NBT_QUICK_SLOT_INVENTORY, quickSlotsInventory.serializeNBT());
 
-            if (nbt.contains("EquippedBag") && bagInventory != null) {
-                ItemStack equippedBag = ItemStack.of(nbt.getCompound("EquippedBag"));
-                equippedBag.getOrCreateTag().put("ContainerInventory", bagInventory.serializeNBT());
-                nbt.put("EquippedBag", equippedBag.save(new CompoundTag()));
+            if (nbt.contains(MBeltConstants.NBT_BAG) && bagInventory != null) {
+                ItemStack equippedBag = ItemStack.of(nbt.getCompound(MBeltConstants.NBT_BAG));
+                equippedBag.getOrCreateTag().put(MBeltConstants.NBT_CONTAINER_INVENTORY, bagInventory.serializeNBT());
+                nbt.put(MBeltConstants.NBT_BAG, equippedBag.save(new CompoundTag()));
             }
         }
     }

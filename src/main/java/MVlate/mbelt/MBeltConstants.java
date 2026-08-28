@@ -31,6 +31,7 @@ public class MBeltConstants {
     public static final String NBT_BAG_SIZE = "bag_size";
     public static final String NBT_QUICK_SLOT = "quick_slots";
     public static final String NBT_QUICK_SLOT_INVENTORY = "QuickSlotsInventory";
+    public static final String NBT_CONTAINER_INVENTORY = "ContainerInventory";
 
     //public static final int QUICK_SLOT_INVENTORY_SIZE = 6;
     //public static final int BAG_INVENTORY_SIZE = 12;

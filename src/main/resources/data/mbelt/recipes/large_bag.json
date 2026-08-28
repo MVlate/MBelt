@@ -1,13 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " L ",
+    "LLL",
     "LBL",
-    " L "
+    "LLL"
   ],
   "key": {
     "B": {
-      "item": "mbelt:medium_bag"
+      "item": "minecraft:iron_ingot"
     },
     "L": {
       "item": "minecraft:leather"
